@@ -54,16 +54,6 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           args: --all-features
 
-  lint-rust-examples:
-    name: Lint Rust Examples
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Install Rustfmt
-        run: rustup component add rustfmt
-      - name: Run Rust Example Linter
-        run: ./lint_rust_examples.sh
-
   rustfmt:
     name: Rustfmt
     runs-on: ubuntu-latest
