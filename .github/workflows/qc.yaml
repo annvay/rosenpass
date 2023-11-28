@@ -1,3 +1,4 @@
+qc.yml:
 name: QC
 on:
   pull_request:
@@ -53,6 +54,18 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           args: --all-features
+
+  lint-and-format-rust-examples:
+    name: Lint and Format Rust Examples
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Rustfmt
+        run: rustup component add rustfmt
+      - name: Lint and Format Rust Examples
+        run: |
+          find . -name "README*" -type f -exec sh -c 'awk "/```rust/{flag=1; next} /```/{flag=0} flag" "$0" | rustfmt --check --color=always --' {} \;
+          find . -name "*.rs" -type f -exec sh -c 'awk "/```rust/{flag=1; next} /```/{flag=0} flag" "$0" | rustfmt --check --color=always --' {} \;
 
   cargo-doc:
     runs-on: ubuntu-latest
