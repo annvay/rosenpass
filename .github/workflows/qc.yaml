@@ -1,4 +1,3 @@
-qc.yml:
 name: QC
 on:
   pull_request:
